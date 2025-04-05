@@ -27,12 +27,31 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+            // Don't prevent default so the mailto: action can work
             
-            // In a real implementation, you would send the form data to a server
-            // For this example, we'll just show an alert
-            alert('Thank you for your message! Captain Z will contact you soon.');
-            contactForm.reset();
+            // Collect form data for email body
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // Format email body
+            const emailBody = `Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Subject: ${subject}
+
+Message:
+${message}`;
+            
+            // Set the subject and body for the mailto link
+            contactForm.action = `mailto:stephen.barrs@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+            
+            // Show confirmation
+            alert('Thank you for your message! Your email client will open to send this message to Captain Z.');
+            
+            // Form will submit naturally to the mailto: link
         });
     }
     
