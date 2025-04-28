@@ -16,7 +16,7 @@
         overflow: hidden;
         height: 500px;
       }
-      
+
       .video-background {
         position: absolute;
         top: 0;
@@ -26,9 +26,9 @@
         pointer-events: none;
         overflow: hidden;
       }
-      
+
       .video-background:after {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
@@ -37,7 +37,7 @@
         background: rgba(0, 0, 0, 0.4);
         z-index: 1;
       }
-      
+
       .video-background iframe {
         width: 100vw;
         height: 56.25vw; /* 16:9 aspect ratio */
@@ -74,7 +74,7 @@
     <main>
       <section class="hero">
         <div class="video-background">
-          <iframe src="https://www.youtube.com/embed/tTu8WYkQhO4?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&playlist=tTu8WYkQhO4" frameborder="0" allowfullscreen></iframe>
+          <!-- <iframe src="https://www.youtube.com/embed/tTu8WYkQhO4?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&playlist=tTu8WYkQhO4" frameborder="0" allowfullscreen></iframe> -->
         </div>
         <div class="hero-content">
           <h1>Let's Go Sailing</h1>
@@ -85,7 +85,10 @@
         </div>
       </section>
 
-      <section class="cta-banner" style="padding-top: 15px; padding-bottom: 15px;">
+      <section
+        class="cta-banner"
+        style="padding-top: 15px; padding-bottom: 15px"
+      >
         <h4>
           Contact us now if you are ready to go sailing, or want to buy/sell a
           yacht!
