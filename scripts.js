@@ -58,13 +58,52 @@ ${message}`;
     // Image gallery lightbox functionality
     const galleryLinks = document.querySelectorAll('.gallery-link');
     
-    galleryLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // In a real implementation, you would show a lightbox
-            // For this example, we'll just open the image in a new tab
-            window.open(this.href, '_blank');
+    if (galleryLinks.length) {
+        // Build lightbox elements once
+        const lightbox = document.createElement('div');
+        lightbox.className = 'lightbox';
+        lightbox.innerHTML = `
+            <div class="lightbox-content">
+                <button class="lightbox-close" aria-label="Close image viewer">&times;</button>
+                <img class="lightbox-image" src="" alt="">
+                <p class="lightbox-caption"></p>
+            </div>
+        `;
+        document.body.appendChild(lightbox);
+
+        const lightboxImage = lightbox.querySelector('.lightbox-image');
+        const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+        const closeButton = lightbox.querySelector('.lightbox-close');
+
+        const closeLightbox = () => {
+            lightbox.classList.remove('active');
+            lightboxImage.src = '';
+            lightboxImage.alt = '';
+            lightboxCaption.textContent = '';
+        };
+
+        closeButton.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
         });
-    });
+        document.addEventListener('keyup', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+
+        galleryLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const img = this.querySelector('img');
+                lightboxImage.src = this.href;
+                lightboxImage.alt = img ? img.alt : '';
+                lightboxCaption.textContent = img ? img.alt : '';
+                lightbox.classList.add('active');
+            });
+        });
+    }
 });
